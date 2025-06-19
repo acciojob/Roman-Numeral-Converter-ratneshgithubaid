@@ -1,21 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const convertButton = document.getElementById('convertButton');
-    const numberInput = document.getElementById('numberInput');
-    const resultDiv = document.getElementById('result');
+    const numberInput = document.getElementById('number-input');
+    const convertButton = document.getElementById('convert-button');
+    const resultOutput = document.getElementById('result-output');
 
     convertButton.addEventListener('click', function() {
-        const num = parseInt(numberInput.value);
+        const number = parseInt(numberInput.value);
         
-        if (isNaN(num) || num < 1 || num > 100000) {
-            resultDiv.textContent = 'Please enter a number between 1 and 100000';
+        if (isNaN(number) || number < 1 || number > 100000) {
+            resultOutput.textContent = 'Please enter a number between 1 and 100,000';
             return;
         }
         
-        const romanNumeral = convertToRoman(num);
-        resultDiv.textContent = romanNumeral;
+        const romanNumeral = convertToRoman(number);
+        resultOutput.textContent = romanNumeral;
     });
 
     function convertToRoman(num) {
+        if (num === 0) return '';
+        
         const romanSymbols = [
             ['M', 1000], ['CM', 900], ['D', 500], ['CD', 400],
             ['C', 100], ['XC', 90], ['L', 50], ['XL', 40],
@@ -24,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let result = '';
         
-        for (const [symbol, value] of romanSymbols) {
+        for (let [symbol, value] of romanSymbols) {
             while (num >= value) {
                 result += symbol;
                 num -= value;
